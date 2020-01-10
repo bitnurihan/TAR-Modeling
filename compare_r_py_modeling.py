@@ -96,8 +96,8 @@ with PdfPages('python_modeling.pdf') as pdf_pages:
                 df_2s_ad_data_screen = df_2s_ad_data_screen[df_2s_ad_data_screen['CPRP'] <= 15000000]  
             elif i.endswith('DGT'):
                 df_2s_ad_data_screen = df_2s_ad_data_screen[df_2s_ad_data_screen['CPRP'] <= df_2s_ad_data_screen['CPRP'].quantile(.75)]
-                # df_2s_ad_data_screen = pd.concat([df_2s_ad_data_screen, df_2s_max_reach_age], sort=True)
+                df_2s_ad_data_screen = pd.concat([df_2s_ad_data_screen, df_2s_max_reach_age], sort=True)
             df_2s_ad_data_final = df_2s_ad_data_screen.sort_values(['Cost'], ascending=True)
             df_2s_ad_data_final = df_2s_ad_data_final[['age', 'screen', 'r1', 'GRP', 'impression', 'Cost']]
-            non_linear_regression()
+            comparing_modeling_with_r_and_python()
   
