@@ -30,9 +30,9 @@ def modeling():
     constant_coefficiant.append(['%s' % age, '%s' % i, pocg[0],pocg[1], pocr[0],pocr[1]])
 
 
-df_2s_ad_data = pd.read_csv(r'C:\Users\hanbi01\Desktop\한빛누리\제일기획\TAR\modeling_data\modeling_data_2S.csv', encoding='ms949')
-df_2s_max_reach = pd.read_excel(r'C:\Users\hanbi01\Desktop\한빛누리\제일기획\TAR\modeling_data\modeling_data_2S.xlsx')
-df_2s_modeling = pd.read_excel(r'C:\Users\hanbi01\Desktop\한빛누리\제일기획\TAR\modeling_data\Cheil3A_DS2_190813.xlsx', sheet_name='Coef_3A')
+df_2s_ad_data = pd.read_csv('modeling_data_2S.csv', encoding='ms949') # raw data
+df_2s_max_reach = pd.read_excel('modeling_data_2S.xlsx') # raw data
+df_2s_modeling = pd.read_excel('Cheil3A_DS2_190813.xlsx', sheet_name='Coef_3A')
 # preprocessing
 df_2s_modeling['AGE_CD'] = df_2s_modeling['AGE_CD'].astype(str)
 df_2s_modeling['Target'] = df_2s_modeling['GENDER_CD'].astype(str) + df_2s_modeling['AGE_CD'].str.zfill(4)
@@ -66,6 +66,6 @@ for age in ages:
     df_constant_coefficiant = pd.DataFrame(constant_coefficiant, columns=['age', 'screen', 'GRP_INTERCEPT', 'GRP_SLOP', 'R1_INTERCEPT', 'R1_SLOP'])
     pivot_constant_coefficiant = pd.pivot_table(df_constant_coefficiant, index=['age'], columns=['screen'])
 
-excel_writer = pd.ExcelWriter(r'C:\Users\hanbi01\Desktop\한빛누리\제일기획\TAR\Py계수.xlsx', engine='xlsxwriter')
-pivot_py_quess.to_excel(excel_writer, sheet_name='Python계수')
+excel_writer = pd.ExcelWriter('constant_slop.xlsx', engine='xlsxwriter')
+pivot_constant_coefficiant.to_excel(excel_writer, sheet_name='Python_constant_slop')
 excel_writer.save()
