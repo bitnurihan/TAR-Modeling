@@ -4,7 +4,7 @@
 - Developed predictive modeling for 'grp' and 'reach%' based on raw data, and proceed with optimal cost allocation by screen to acheive the highest reach% based on total advertising costs.
 
 
-2. Description of python file
+2. Description of files
  - modeling_by_python.py
  : extracts modeling constants and slop from raw data.
  - compare_r_py_modeling.py
