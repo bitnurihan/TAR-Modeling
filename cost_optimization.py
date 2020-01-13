@@ -55,12 +55,11 @@ def f(x):
     return reach1
 
 
-excel_writer = pd.ExcelWriter(r'C:\Users\hanbi01\Desktop\한빛누리\TAR프로젝트\제일기획\TAR\opti_none.xlsx', engine='openpyxl')
-df_2s_ad_data = pd.read_csv(r'C:\Users\hanbi01\Desktop\한빛누리\TAR프로젝트\제일기획\TAR\modeling_data\modeling_data_2S.csv', encoding='ms949')
-df_2s_modeling = pd.read_excel(r'C:\Users\hanbi01\Desktop\한빛누리\TAR프로젝트\제일기획\TAR\modeling_data\Cheil3A_DS2_190904.xlsx',
-                               sheet_name='Coef_3A(6안)')
-df_3s_dup = pd.read_excel(r'C:\Users\hanbi01\Desktop\한빛누리\TAR프로젝트\제일기획\TAR\modeling_data\Cheil3A_DS2_190904.xlsx',
-                               sheet_name='Simul_3A')
+excel_writer = pd.ExcelWriter('optimization_result.xlsx', engine='openpyxl') # budget optimizing result file
+df_2s_ad_data = pd.read_csv('modeling_data_2S.csv', encoding='ms949')
+df_2s_modeling = pd.read_excel('Cheil3A_DS2_190904.xlsx', sheet_name='Coef_3A(6안)') # constant & slop data
+df_3s_dup = pd.read_excel('Cheil3A_DS2_190904.xlsx', sheet_name='Simul_3A')
+
 # preprocessing
 df_2s_ad_data['screen'] = df_2s_ad_data['screen'].apply(lambda x: 'DGT' if x == 'PC∪MO' else x)
 df_2s_modeling['AGE_CD'] = df_2s_modeling['AGE_CD'].astype(str)
@@ -71,13 +70,14 @@ df_3s_dup['Target'] = df_3s_dup['GENDER_CD'].astype(str) + df_3s_dup['AGE_CD'].s
 ages = ['MF0769','MF1318','MF1929', 'MF3039', 'MF4049','MF5059','MF6069', 'MF1949', 'MF3059']
 
 
-total_cost = np.linspace(1, 10, 10)  # 1억부터 50억까지 50개 구간
+total_cost = np.linspace(1, 10, 10)  # KRW 1 billion ~ 10 billion, 10개 구간
 a = [0.25, 10]  # TV 최소 2500만~ 최대 50억
 b = [0.1, 10]  # DGT 최소 1000만 ~ 최대 50억
 bnds = (a, a, b)
 con = {'type': 'eq', 'fun': lambda x: (x[0] + x[1] + x[2] - total_cost[i])}
 with PdfPages('opti_none.pdf') as pdf_pages:
     for age in ages:
+        # screen duplicate
         df_3s_dup_age = df_3s_dup[df_3s_dup['Target'] == age].copy()
         DupRate_jsp_ca = list(df_3s_dup_age['JSPTV&CATV'])
         DupRate_ca_dgt = list(df_3s_dup_age['CATV&DGT'])
@@ -90,7 +90,7 @@ with PdfPages('opti_none.pdf') as pdf_pages:
             x0 = np.array([total_cost[i]-0.35, 0.25, 0.1]) # starting cost
             sol = minimize(lambda x: -f(x), x0, method='SLSQP', bounds=bnds, constraints=con)
             optimizing_x.append(list(sol.x))  # optimized result(cost) of each screen
-            result.append(f(list(sol.x)))  # optimized result of total reach
+            result.append(f(list(sol.x)))  # total reach1+%
         x = total_cost*100000000  # total cost
         y = (optimizing_x[j] for j in range(len(total_cost)))
         df = pd.DataFrame(y, index=x, columns=['JSPTV', 'CATV','DGT'])
