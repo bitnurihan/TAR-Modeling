@@ -13,3 +13,5 @@
  : Budget allocation for each screen to maximize the advertising effect(reach%) within the same budget.
  - modeling_visualization.py
  : compared raw data and modeling curves with determined coefficients and constants before client review.
+
+ Raw data can't be uploaded because it's confidential.
