@@ -5,7 +5,7 @@
 
 2. Methodology
 - Calculated Modeling based on campaign targets(sex&age).
-- Finding a union for four or more sites has difficulty calculating the cross-site duplicate, so limits the media to up to three.
+- Limits the media to up to three for calculating union of total media reach%.
 - The curve fitting is used to modeling for non-linear regression.
 - Used SLSQP method for budget optimization.
 - Calculated the total reach% by applying cross-site duplicate rate due to duplication between sites.
