@@ -8,7 +8,7 @@
  - modeling_by_python.py
  : extracts modeling constants and slop from raw data.
  - compare_r_py_modeling.py
- : compares R modeling constants with Python modeling constants to verify which coefficients are better representative of the actual raw data.
+ : compares R modeling curves with Python modeling curves to verify which curves are better representative of the actual raw data.
  - cost_optimization.py
  : Budget allocation for each screen to maximize the advertising effect(reach%) within the same budget.
  - modeling_visualization.py
