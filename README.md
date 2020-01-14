@@ -4,10 +4,10 @@
 - Developed predictive modeling for 'grp' and 'reach%' based on raw data, and proceed with budget allocation by screen to acheive the highest reach% based on total advertising costs.
 
 2. Methodology
-- Calculated cross-site duplication through the panel's media usage data.
 - The curve fitting is used to modeling for non-linear regression.
 - Used SLSQP method for budget optimization.
-
+- Calculated the total reach% by applying cross-site duplicate rate due to duplication between sites.
+- Calculated cross-site duplication through the panel's media usage data.
 
 3. Description of files
  - modeling_by_python.py
