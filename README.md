@@ -4,6 +4,8 @@
 - Developed predictive modeling for 'grp' and 'reach%' based on raw data, and proceed with budget allocation by screen to acheive the highest reach% based on total advertising costs.
 
 2. Methodology
+- Calculated Modeling based on campaign targets(sex&age).
+- Finding a union for four or more sites has difficulty calculating the cross-site duplicate, so limits the media to up to three.
 - The curve fitting is used to modeling for non-linear regression.
 - Used SLSQP method for budget optimization.
 - Calculated the total reach% by applying cross-site duplicate rate due to duplication between sites.
